@@ -50,11 +50,11 @@ Moreover, it enables out-of-band biometric authentication for all B2C online ser
   2. Click <b>passwordless Reg/Unreg</b>.
   3. Enter ID and password, and click <b>passwordless Reg/Unreg</b> button.
 
-    ![image](https://github.com/user-attachments/assets/89950b14-06cf-4111-b325-b41581f04c61)
+    ![image](https://github.com/user-attachments/assets/e11e93ee-72db-4df1-97bb-a4aa4ec51d97)
 
   5. When the QR Code appears on the screen, launch the passwordless X1280 app, click the <b>[+]</b> in the upper right corner, turn on the camera, and scan the QR Code.
 
-    ![image](https://github.com/user-attachments/assets/dfff4447-d0ff-444c-a4d0-e0b894b05bc2)
+    ![image](https://github.com/user-attachments/assets/07756a6c-d62d-4226-a9ca-aa39617284af)
 
 + Passwordless X1280 login
   1. On the login screen of the browser, enter only the ID without entering a password and click the login button.
@@ -62,6 +62,14 @@ Moreover, it enables out-of-band biometric authentication for all B2C online ser
     (__If the 6-digit number in your browser and the number in the Passwordless X1280 app are the same, this indicates that no tampering has occurred.__)
 
     ![image](https://github.com/user-attachments/assets/8e74657b-8e7e-4edb-a0a7-f7d4a1b78fd6)
+
++ Customizing Login UI
+  * This project (PasswordlessX1280-with-Java-UI-webservice) does not allow you to modify the QR Code screen that appears when registering for the Passwordless X1280 service or the screen that displays the 6-digit number when logging in. (You can only change the color.)
+  * To customize these screens, you need to use the PasswordlessX1280-with-Java-RestAPI-webservice project.
+
+    PasswordlessX1280-with-Java-RestAPI-webservice
+   
+    [https://github.com/PasswordlessAlliance/PasswordlessX1280-with-Java-RestAPI-webservice/tree/master](https://github.com/PasswordlessAlliance/PasswordlessX1280-with-Java-RestAPI-webservice/tree/master)
 
 
 ## Who we are
