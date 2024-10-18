@@ -64,10 +64,8 @@ Moreover, it enables out-of-band biometric authentication for all B2C online ser
     ![image](https://github.com/user-attachments/assets/8e74657b-8e7e-4edb-a0a7-f7d4a1b78fd6)
 
 + Customizing Login UI
-  * This project (PasswordlessX1280-with-Java-UI-webservice) does not allow you to modify the QR Code screen that appears when registering for the Passwordless X1280 service or the screen that displays the 6-digit number when logging in. (You can only change the color.)
-  * To customize these screens, you need to use the PasswordlessX1280-with-Java-RestAPI-webservice project.
-
-    PasswordlessX1280-with-Java-RestAPI-webservice
+  * This project (<b>PasswordlessX1280-with-Java-UI-webservice</b>) does not allow you to modify the QR Code screen that appears when registering for the Passwordless X1280 service or the screen that displays the 6-digit number when logging in. (You can only change the color.)
+  * To customize these screens, you need to use the <b>PasswordlessX1280-with-Java-RestAPI-webservice</b> project.
    
     [https://github.com/PasswordlessAlliance/PasswordlessX1280-with-Java-RestAPI-webservice/tree/master](https://github.com/PasswordlessAlliance/PasswordlessX1280-with-Java-RestAPI-webservice/tree/master)
 
