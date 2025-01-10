@@ -38,37 +38,37 @@ public class LoginController {
 	@Value("${passwordless.serverKey}")
 	private String serverKey;
 	
-	//관리 종류
-	private int REQ_DEL = 1;  			//삭제
-	private int REQ_REG = 2;			//등록
-	private int REQ_AUTH = 3;			//인증
+	// Management Types
+	private int REQ_DEL = 1;  			// Delete
+	private int REQ_REG = 2;			// Register
+	private int REQ_AUTH = 3;			// Authenticate
 	
-	//관리 결과
-	private int RES_SUCCESS = 1;		//성공
-	private int RES_FAIL = 0;			//실패
+	// Management Results
+	private int RES_SUCCESS = 1;		// Success
+	private int RES_FAIL = 0;			// Failure
 	
-	// 로그인
+	// Login
 	@RequestMapping(value="/Login/login.do")
 	public String login(Model model, HttpServletRequest request) {
 
 		return "/Login/login";
 	}
 	
-	// 회원가입
+	// Sign Up
 	@RequestMapping(value="/Login/join.do")
 	public String join(Model model, HttpServletRequest request) {
 		
 		return "/Login/join";
 	}
 	
-	// 비밀번호 변경
+	// Change Password
 	@RequestMapping(value="/Login/changepw.do")
 	public String changepw(Model model, HttpServletRequest request) {
 		
 		return "/Login/changepw";
 	}
 
-	// 로그아웃
+	// Logout
 	@RequestMapping(value="/Login/Logout.do")
 	public String Logout(Model model, HttpServletRequest request) {
 		
@@ -78,7 +78,7 @@ public class LoginController {
 		return "/Login/logout";
 	}
 	
-	// Passwordless 요청 결과
+	// Passwordless Request Result
 	@RequestMapping("/Login/passwordlessresult.do")
 	public String passwordlessresult(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -134,7 +134,7 @@ public class LoginController {
 			Algorithm algorithm = Algorithm.HMAC512(serverKey);
 			JWTVerifier verifier = JWT.require(algorithm)
 				.acceptExpiresAt(10)
-				.build(); //Reusable verifier instance
+				.build(); // Reusable verifier instance
 			
 			DecodedJWT jwt = null;
 			
@@ -148,8 +148,8 @@ public class LoginController {
 				jwt = verifier.verify(resultToken);
 				random = jwt.getClaim("random").asString();
 				action = jwt.getClaim("action").asString();
-				subAction = jwt.getClaim("subAction").asInt();	// 1:삭제, 2:등록, 3:인증
-				result = jwt.getClaim("result").asInt();		// 1:성공, 0:실패
+				subAction = jwt.getClaim("subAction").asInt();	// 1: Delete, 2: Register, 3: Authenticate
+				result = jwt.getClaim("result").asInt();		// 1: Success, 0: Failure
 				userId = jwt.getClaim("userId").asString();
 				
 				log.info("result      [" + result + "]");
@@ -159,14 +159,14 @@ public class LoginController {
 				log.info("userId      [" + userId + "]");
 				
 				if(action.equals("AUTH")) {
-					// 인증종류가 REQ_AUTH(3)
+					// If the action type is REQ_AUTH(3)
 					if(subAction == REQ_AUTH) {
 						
-						// 결과가 RES_SUCCESS(1) 일 경우 로그인 성공처리
+						// If the result is RES_SUCCESS(1), handle successful login
 						if(result == RES_SUCCESS) {
-							log.info("로그인결과 검증 OK - 비밀번호 변경");
+							log.info("Login verification OK - Change password");
 							
-							// 로그인 성공 시 패스워드 변경
+							// Change password upon successful login
 							String newPw = Long.toString(System.currentTimeMillis()) + ":" + userId;
 							UserInfo userinfo = new UserInfo();
 							userinfo.setId(userId);
@@ -177,7 +177,7 @@ public class LoginController {
 							model.addAttribute("result", "OK");
 						}
 						else {
-							log.info("로그인결과 검증 FAIL");
+							log.info("Login verification FAIL");
 							
 							session.setAttribute("id", "");
 							model.addAttribute("result", "Login failed");
@@ -185,16 +185,16 @@ public class LoginController {
 					}
 				}
 				else if(action.equals("MANAGE")) {
-					// 인증종류가 REQ_DEL(1) 또는 REQ_REG(2)
+					// If the action type is REQ_DEL(1) or REQ_REG(2)
 					if(subAction == REQ_DEL || subAction == REQ_REG) {
 						
-						// 결과가 RES_SUCCESS(1) 일 경우 성공처리
+						// If the result is RES_SUCCESS(1), handle success
 						if(result == RES_SUCCESS) {
-							log.info("관리요청 OK");
+							log.info("Management request OK");
 							
-							// QR등록 시 패스워드 변경
+							// If QR is registered, change the password
 							if(subAction == REQ_REG) {
-								log.info("QR등록 성공 - 비밀번호 변경");
+								log.info("QR registration successful - Change password");
 								String newPw = Long.toString(System.currentTimeMillis()) + ":" + userId;
 								UserInfo userinfo = new UserInfo();
 								userinfo.setId(userId);
@@ -205,7 +205,7 @@ public class LoginController {
 							model.addAttribute("result", "OK");
 						}
 						else if(result == RES_FAIL){
-							log.info("관리요청 FAIL");
+							log.info("Management request FAIL");
 							
 							model.addAttribute("result", "Login failed");
 						}
@@ -220,7 +220,7 @@ public class LoginController {
 			}
 		}
 		else {
-			model.addAttribute("result", "Server did not response.");
+			model.addAttribute("result", "Server did not respond.");
 		}
 		
 		return "/Login/passwordlessresult";
@@ -235,10 +235,10 @@ public class LoginController {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		// optional default is GET
+		// Optional default is GET
 		con.setRequestMethod("GET");
 
-		//add request header
+		// Add request header
 		con.setRequestProperty("User-Agent", USER_AGENT);
 
 		int responseCode = con.getResponseCode();

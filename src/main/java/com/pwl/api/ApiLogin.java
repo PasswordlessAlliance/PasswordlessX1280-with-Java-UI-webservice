@@ -66,17 +66,17 @@ public class ApiLogin {
 	@Value("${passwordless.restCheckUrl}")
 	private String restCheckUrl;
 	
-	// Passwordless 요청 결과 redirect URL
+	// Passwordless result redirect URL
 	private String passwordlessresult = "/Login/passwordlessresult.do";
 	
-	// Passwordless URL
-	private String isApUrl = "/ap/rest/auth/isAp";									// Passwordless 등록여부 확인
-	private String joinApUrl = "/ap/rest/auth/joinAp";								// Passwordless 등록 REST API
-	private String withdrawalApUrl = "/ap/rest/auth/withdrawalAp";					// Passwordless 해지 REST API
-	private String getTokenForOneTimeUrl = "/ap/rest/auth/getTokenForOneTime";		// Passwordless 일회용토큰 요청 REST API
-	private String getSpUrl = "/ap/rest/auth/getSp";								// Passwordless 인증요청 REST API
-	private String resultUrl = "/ap/rest/auth/result";								// Passwordless 인증 결과 요청 REST API
-	private String cancelUrl = "/ap/rest/auth/cancel";								// Passwordless 인증요청 취소 REST API
+	// Passwordless URLs
+	private String isApUrl = "/ap/rest/auth/isAp";									// Passwordless registration check
+	private String joinApUrl = "/ap/rest/auth/joinAp";								// Passwordless registration REST API
+	private String withdrawalApUrl = "/ap/rest/auth/withdrawalAp";					// Passwordless cancellation REST API
+	private String getTokenForOneTimeUrl = "/ap/rest/auth/getTokenForOneTime";		// Passwordless one-time token request REST API
+	private String getSpUrl = "/ap/rest/auth/getSp";								// Passwordless authentication request REST API
+	private String resultUrl = "/ap/rest/auth/result";								// Passwordless authentication result request REST API
+	private String cancelUrl = "/ap/rest/auth/cancel";								// Passwordless authentication cancellation REST API
 	
 	@PostMapping(value="loginCheck", produces="application/json;charset=utf8")
 	public Map<String, Object> loginCheck(
@@ -100,7 +100,7 @@ public class ApiLogin {
 			
 			boolean exist = false;
 
-			// Simple UI 방식에서 유저등록여부 체크 (passwordless.recommend=1 이고 유저 등록되어 있으면 ID/PASSWD 로그인 못함 --> QRCode 해지해야 ID/PASSWD 로그인이 가능함)
+			// Check if user is registered in the Simple UI mode (passwordless.recommend=1 and if user is registered, ID/PASSWORD login is not allowed --> QRCode must be unregistered to allow ID/PASSWORD login)
 			if(newUserinfo != null) {
 				String existId = passwordlessCallApi(id);
 				log.info("recommend=" + recommend + ", existId=" + existId);
@@ -248,7 +248,7 @@ public class ApiLogin {
 	
 	// ------------------------------------------------ Passwordless ------------------------------------------------
 	
-	// Passwordless 로그인요청
+	// Passwordless login request
 	@PostMapping(value="passwordlesslogin", produces="application/json;charset=utf8")
 	public Map<String, Object> passwordlesslogin(
 			@RequestParam(value = "id", required = false) String id,
@@ -311,7 +311,7 @@ public class ApiLogin {
 		return mapResult;
 	}
 	
-	// Passwordless 관리
+	// Passwordless management
 	@PostMapping(value="passwordlessmanage", produces="application/json;charset=utf8")
 	public Map<String, Object> passwordlessmanage(
 			@RequestParam(value = "id", required = false) String id,
@@ -470,9 +470,10 @@ public class ApiLogin {
          	String[] tmpArr = param.split("=");
              name = tmpArr[0];
              
+
              if(tmpArr.length == 2)
              	value = tmpArr[1];
-             
+             	
              map.put(name, value);
          }
 

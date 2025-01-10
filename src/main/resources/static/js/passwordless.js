@@ -33,7 +33,7 @@ function trim(stringToTrim) {
     	return stringToTrim;
 }
 
-// Password 로그인 & Passwordless 로그인 선택 radio 버튼
+// Password Login & Passwordless Login Selection Radio Button
 function selPassword(sel) {
 	if(sel == 1) {
 		selPasswordNo = 1;
@@ -68,7 +68,7 @@ function selPassword(sel) {
 	$("#btn_login").html(str_login);
 }
 
-// 로그인 요청
+// Login Request
 function login() {
 	id = $("#id").val();
 	pw = $("#pw").val();
@@ -85,7 +85,7 @@ function login() {
 		return false;
 	}
 
-	// Password 로그인
+	// Password Login
 	if(selPasswordNo == 1) {
 		if(pw == "") {
 			alert(str_input_password);
@@ -116,7 +116,7 @@ function login() {
 	        }
 	    });
 	}
-	// Passwordless 로그인
+	// Passwordless Login
 	else if(selPasswordNo == 2) {
 		loginPasswordless();
 	}
@@ -126,7 +126,7 @@ function login() {
 	}
 }
 
-// Passwordless 로그인 요청
+// Passwordless Login Request
 function loginPasswordless() {
 	$.ajax({
         url : "/api/Login/passwordlesslogin",
@@ -155,7 +155,7 @@ function loginPasswordless() {
     });
 }
 
-// passwordless 관리페이지 이동
+// Navigate to Passwordless Management Page
 function moveManagePasswordless() {
 	selPasswordNo = 3;
 	$("#passwordlessSelButton").hide();
@@ -173,7 +173,7 @@ function cancelManage() {
 	selPassword(2);
 }
 
-// 로그인화면으로 이동
+// Navigate to the login screen
 function backManagePasswordless() {
 	passwordless = window.localStorage.getItem('passwordless');
 	
@@ -183,7 +183,7 @@ function backManagePasswordless() {
 		selPassword(2);
 }
 
-// Passwordless 관리요청
+// Passwordless Management Request
 function managePasswordless() {
 
 	id = $("#id").val();
@@ -235,7 +235,7 @@ function managePasswordless() {
     });
 }
 
-//도움말
+//Help
 var showHelp = false;
 function show_help() {
 	if(showHelp == false) {
